@@ -1,9 +1,15 @@
 // Carregando módulos
 
 const express = require("express");
-const handlebars = require("express-handlebars");
+const { engine } = require("express-handlebars");
 const bodyParser = require("body-parser");
 const app = express();
+
+// serve para trabalhar com diretórios e manipular pastas
+const path = require("path");
+
+// Chamando as rotas de admin do ./routes/admin.js
+const admin = require("./routes/admin");
 //const mongoose = require('mongoose')
 
 // Configurações
@@ -12,6 +18,11 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Public
+
+// Serve para definir a pasta public como a pasta de arquivos estáticos
+app.use(express.static(path.join(__dirname, "public")));
 
 // Handlebars
 
@@ -28,6 +39,10 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 // Rotas
+app.get("/", (req, res) => {
+  res.send("Página principal do site");
+});
+app.use("/admin", admin);
 
 // Outros
 const PORT = 8081;

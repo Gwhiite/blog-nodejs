@@ -4,15 +4,29 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 const bodyParser = require("body-parser");
 const app = express();
+const mongoose = require("mongoose");
 
 // serve para trabalhar com diretórios e manipular pastas
 const path = require("path");
 
 // Chamando as rotas de admin do ./routes/admin.js
 const admin = require("./routes/admin");
-//const mongoose = require('mongoose')
 
 // Configurações
+
+// Mongoose
+
+// Conexão com o banco de dados
+
+mongoose.Promise = global.Promise;
+mongoose
+  .connect("mongodb://localhost/blogapp")
+  .then(() => {
+    console.log("Conectado ao mongo");
+  })
+  .catch((err) => {
+    console.log("Erro ao se conectar: " + err);
+  });
 
 // Body Parser
 

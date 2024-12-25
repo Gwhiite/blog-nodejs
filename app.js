@@ -5,6 +5,8 @@ const { engine } = require("express-handlebars");
 const bodyParser = require("body-parser");
 const app = express();
 const mongoose = require("mongoose");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 // serve para trabalhar com diretórios e manipular pastas
 const path = require("path");
@@ -13,6 +15,27 @@ const path = require("path");
 const admin = require("./routes/admin");
 
 // Configurações
+
+// Session
+
+app.use(
+  session({
+    secret: "cursodenode",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(flash());
+
+// Middleware
+
+app.use((req, res, next) => {
+  // Criação de variaveis globais a partir do "res.locals"
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+});
 
 // Mongoose
 

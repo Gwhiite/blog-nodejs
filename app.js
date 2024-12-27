@@ -11,7 +11,7 @@ const flash = require("connect-flash");
 // serve para trabalhar com diretórios e manipular pastas
 const path = require("path");
 
-// Chamando as rotas de admin do ./routes/admin.js
+// Importando as rotas de admin do ./routes/admin.js
 const admin = require("./routes/admin");
 
 // Configurações
